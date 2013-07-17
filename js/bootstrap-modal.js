@@ -30,10 +30,10 @@
     this.options = options
     this.$element = $(element)
       .delegate('[data-dismiss="modal"]', 'click.dismiss.modal', $.proxy(this.hide, this))
-    if (this.$element.find('.modal-body').length == 0) {
-    	this.options.remote && this.$element.load(this.options.remote)
-    } else {
+    if (this.options.remoteinbody) {
     	this.options.remote && this.$element.find('.modal-body').load(this.options.remote)
+    } else {
+    	this.options.remote && this.$element.load(this.options.remote)
     }
   }
 
@@ -103,6 +103,7 @@
         this.$element
           .removeClass('in')
           .attr('aria-hidden', true)
+          .removeData('modal')
 
         $.support.transition && this.$element.hasClass('fade') ?
           this.hideWithTransition() :
@@ -216,6 +217,7 @@
       backdrop: true
     , keyboard: true
     , show: true
+    , remoteinbody: true
   }
 
   $.fn.modal.Constructor = Modal
